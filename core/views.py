@@ -4,15 +4,26 @@ from django.contrib import messages
 from django.http import HttpResponse
 from . models import Profile, Post, likePost, FollowersCount
 from django.contrib.auth.decorators import login_required
-
+from itertools import chain 
 
 @login_required(login_url = 'signin')
 def index(request):
     user_object = User.objects.get(username = request.user.username)
-    user_profile = Profile.objects.get(user = user_object)
-    
+    user_profile = Profile.objects.get(user = user_object)    
+    user_following_list = []
+    feed = []
+    user_following = FollowersCount.objects.filter(follower = request.user.username)
+
+    for users in user_following:
+        user_following_list.append(users.user)
+
+    for usernames in user_following_list:
+        feed_list = Post.objects.filter(user = usernames)
+        feed.append(feed_list)
+
+    feed_list = list(chain(*feed))  
     posts = Post.objects.all()
-    return render(request, 'index.html',{"user_profile" : user_profile, "posts" : posts})
+    return render(request, 'index.html',{"user_profile" : user_profile, "posts" : feed_list})
 
 
 def signup(request):
@@ -161,7 +172,7 @@ def profile(request, pk):
         button_text = "Unfollow"
     else:
         button_text = "Follow"   
-         
+
     user_followers = len(FollowersCount.objects.filter(user = pk))
     user_following = len(FollowersCount.objects.filter(follower = pk))
 
