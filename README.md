@@ -1,4 +1,39 @@
-Developing a social media platform using Django ✌🏻<br><br>
+# A Social Media Platform Using Django <br>
+
+## Functionalities:
+
+- Uploading a post
+- Liking a post
+- Creating an user account
+- Signin
+- Logout
+- Account settings
+- Customized Feed
+- User authentication
+- Follow & Unfollow users
+- Searching a user
+- User Suggestions
+  
+<br>
+
+## Project Setup:
+
+Create the project:
+```
+django-admin startproject social_platform
+```
+```
+django-admin startapp core
+
+```
+Run the app:
+
+```
+python manage.py runserver
+```
+
+## Tech Stack:
+
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)<br>
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)<br>
